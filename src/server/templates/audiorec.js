@@ -6,6 +6,8 @@ const audioPlayer = document.getElementById("audioPlayer");
 let mediaRecorder;
 let audioChunks = [];
 
+console.log("JavaLoaded")
+
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ audio: true})
 
@@ -19,7 +21,8 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             };
 
             mediaRecorder.onstop = function () {
-                const audioBlob = new Blob(audioChunks, { 'type': 'audio/wav'});
+                const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+                uploadBlob(audioBlob);
                 const audioURL = URL.createObjectURL(audioBlob);
                 const listItem = document.createElement('li');
                 const audioLink = document.createElement('a');
@@ -32,7 +35,20 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 audioChunks = [];
             };
 
-        
+            startRecordingButton.addEventListener('click', function () {
+                console.log("Start");
+                audioChunks = [];
+                mediaRecorder.start();
+                startRecordingButton.disabled = true;
+                stopRecordingButton.disabled = false;
+            });
+
+            stopRecordingButton.addEventListener('click', function () {
+                console.log("stop");
+                mediaRecorder.stop();
+                startRecordingButton.disabled = false;
+                stopRecordingButton.disabled = true;
+            })
         })
         .catch(function (error) {
             console.error("Error accessing the microphone: " + error);
@@ -42,15 +58,26 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.error("Browser doesn't support audio recording");
     }
 
-startRecordingButton.addEventListener('click', function () {
-    audioChunks = [];
-    mediaRecorder.start();
-    startRecordingButton.disabled = true;
-    stopRecordingButton.disabled = false;
-});
+async function uploadBlob(audioBlob) {
+    const formData = new FormData();
+    formData.append('audio_data', audioBlob, 'audio.webm');
 
-stopRecordingButton.addEventListener('click', function () {
-    mediaRecorder.stop();
-    startRecordingButton.disabled = false;
-    stopRecordingButton.disabled = true;
-})
+    const apiUrl = "http://127.0.0.1:5000/upload/audio"
+
+    try {
+        const res = await fetch(apiUrl, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!res.ok) {
+            throw new Error("Server error");
+        }
+
+        const data = await res.json();
+        console.log("Upload success:", data);
+
+    } catch (err) {
+        console.error("Upload failed:", err);
+    }
+}
