@@ -1,10 +1,10 @@
-const startRecordingButton = document.getElementById("startRecording");
-const stopRecordingButton = document.getElementById("stopRecording");
+const recordingButton = document.getElementById("recordingBttn");
 const audioList = document.getElementById("audioList");
 const audioPlayer = document.getElementById("audioPlayer");
 
 let mediaRecorder;
 let audioChunks = [];
+startRecording = false;
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ audio: true})
@@ -19,7 +19,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             };
 
             mediaRecorder.onstop = function () {
-                const audioBlob = new Blob(audioChunks, { 'type': 'audio/wav'});
+                const audioBlob = new Blob(audioChunks, {'type' : 'audio/wav'});
                 const audioURL = URL.createObjectURL(audioBlob);
                 const listItem = document.createElement('li');
                 const audioLink = document.createElement('a');
@@ -42,15 +42,20 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.error("Browser doesn't support audio recording");
     }
 
-startRecordingButton.addEventListener('click', function () {
-    audioChunks = [];
-    mediaRecorder.start();
-    startRecordingButton.disabled = true;
-    stopRecordingButton.disabled = false;
-});
 
-stopRecordingButton.addEventListener('click', function () {
-    mediaRecorder.stop();
-    startRecordingButton.disabled = false;
-    stopRecordingButton.disabled = true;
-})
+recordingButton.addEventListener('click', function () {
+    if (startRecording == false) {
+        startRecording = true;
+        audioChunks = [];
+        mediaRecorder.start();
+        document.getElementById('duckImg').src='duckThinking.gif'
+        recordingButton.src='startRecording.png'
+    }
+
+    else {
+        mediaRecorder.stop();
+        startRecording = false;
+        document.getElementById('duckImg').src='duckSpeaking.gif'
+        recordingButton.src='stopRecording.png'
+    }
+});

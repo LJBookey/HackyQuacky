@@ -23,14 +23,13 @@
         <!-- <div class="duckNoise"> -->
             <div class="duckNoise">
             <h3>Upload the duck track</h3>
-            <form action = "/success" method = "post" enctype="multipart/form-data">
-                <input type="file" name="file"/>
-                <input type = "submit" value="Upload">
-            </form>
+            <input type="image" src="stopRecording.png" alt="recordingButton" id="recordingBttn">
+            <ul id="audioList"></ul>
+            <audio id="audioPlayer" controls></audio>
             </div>
         <!-- </div> -->
             <div class="duckGif">
-            <img src="duck.gif" alt="a pixel duck" style = "width:100%; height:100%">
+            <img id="duckImg" src="duck.gif" alt="a pixel duck" style = "width:100%; height:100%">
             </div>
             <div class="duckTranslation">
                 <h3>Translated duck: </h3>
@@ -38,4 +37,5 @@
             </div>
         </div>
     </body>
+    <script src="audiorec.js"></script>
 </html>
