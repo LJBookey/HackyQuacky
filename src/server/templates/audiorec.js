@@ -23,15 +23,6 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             mediaRecorder.onstop = function () {
                 const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
                 uploadBlob(audioBlob);
-                const audioURL = URL.createObjectURL(audioBlob);
-                const listItem = document.createElement('li');
-                const audioLink = document.createElement('a');
-                audioLink.href = audioURL;
-                audioLink.download = 'audio.wav';
-                audioLink.textContent = 'Download Audio';
-                listItem.appendChild(audioLink);
-                audioList.appendChild(listItem);
-                audioPlayer.src = audioURL;
                 audioChunks = [];
 
                 
@@ -82,6 +73,7 @@ async function uploadBlob(audioBlob) {
         }
 
         const data = await res.json();
+        document.getElementsByClassName("translate")[0].textContent=data.response;
         console.log("Upload success:", data);
 
     } catch (err) {
