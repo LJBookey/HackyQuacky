@@ -18,10 +18,22 @@
         </div>
 
         <div class="flex-container">
-            <button type="button" id="startRecording">Start Recording</button>
-            <button type="button" id="stopRecording">Stop Recording</button>
+                <!-- The code for the form -->
+        <!-- <div class="duckNoise"> -->
+            <div class="duckNoise">
+            <h3>Upload the duck track</h3>
+            <input type="image" src="stopRecording.png" alt="recordingButton" id="recordingBttn">
             <ul id="audioList"></ul>
             <audio id="audioPlayer" controls></audio>
+            </div>
+        <!-- </div> -->
+            <div class="duckGif">
+            <img id="duckImg" src="duck.gif" alt="a pixel duck" style = "width:100%; height:100%">
+            </div>
+            <div class="duckTranslation">
+                <h3>Translated duck: </h3>
+                <p>Quack quack ... upload a duck file and translated duck will appear here ... quack quack <span class="translate"></span></p>
+            </div>
         </div>
     </body>
     <script src="audiorec.js"></script>
