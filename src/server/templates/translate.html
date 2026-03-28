@@ -16,10 +16,13 @@
                 <li><a href="about.html">About</a></li>
             </ul>
         </div>
-
-        <div class="duckNoise">
-            <input type="file" id="duckFile" placeHolder="File to upload">
-        </div>
+    <!-- The code for the form -->
+        <!-- <div class="duckNoise"> -->
+            <form action = "/success" method = "post" enctype="multipart/form-data">
+                <input type="file" name="file"/>
+                <input type = "submit" value="Upload">
+            </form>
+        <!-- </div> -->
         
         <div class="duckTranslation">
             <p>Translated duck: </p>
