@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 header {
     background-color: #E4572E;
     text-align: center;
@@ -16,4 +18,36 @@ ul.navBar li a {
     color: #F6E798;
     padding: 14px 16px;
     text-decoration: none;
+}
+
+div.flex-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 40px;
+    justify-content: center;
+}
+
+div.duckNoise {
+    width: 300px;
+    height : 400px;
+    background-color: #E4572E;
+    margin: 20px;
+}
+div.duckGif {
+    width: 300px;
+    height: 400px;
+    margin: 20px;
+    justify-content: center;
+}
+div.duckTranslation {
+    width: 300px;
+    height : 400px;
+    margin: 20px;
+    background-color: #E4572E;
+}
+
+body {
+    background-color: #F6E798;
+    font-family: "Press Start 2P", monospace;
+    color: #F6E798; 
 }
