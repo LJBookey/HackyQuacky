@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <title>Hacky Quacky</title>
+
+    <body>
+        <header><h2>Translate experiment</h2></header>
+
+        <div class="navBar">
+            <ul class="navBar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="translate.html">Translate</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+
+        <div class="flex-container">
+            <button id="startRecording">Start Recording</button>
+            <button id="stopRecording">Stop Recording</button>
+            <ul id="audioList"></ul>
+            <audio id="audioPlayer" controls></audio>
+        </div>
+    </body>
+    <script src="audiorec.js"></script>
+</html>
