@@ -1,4 +1,4 @@
-from distutils.log import debug
+#from distutils.log import debug
 from fileinput import filename
 from flask import *  
 from flask_cors import CORS
@@ -30,4 +30,4 @@ def uploadAudio():
 
 
 if __name__ == '__main__':  
-    app.run(debug=False)
+    app.run()

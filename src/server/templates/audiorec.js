@@ -33,22 +33,27 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 audioList.appendChild(listItem);
                 audioPlayer.src = audioURL;
                 audioChunks = [];
+
+                
             };
 
-            startRecordingButton.addEventListener('click', function () {
-                console.log("Start");
-                audioChunks = [];
-                mediaRecorder.start();
-                startRecordingButton.disabled = true;
-                stopRecordingButton.disabled = false;
+            recordingButton.addEventListener('click', function () {
+                if (startRecording == false) {
+                    startRecording = true;
+                    audioChunks = [];
+                    mediaRecorder.start();
+                    document.getElementById('duckImg').src='duckThinking.gif'
+                    recordingButton.src='startRecording.png'
+                }
+
+                else {
+                    mediaRecorder.stop();
+                    startRecording = false;
+                    document.getElementById('duckImg').src='duckSpeaking.gif'
+                    recordingButton.src='stopRecording.png'
+                }
             });
 
-            stopRecordingButton.addEventListener('click', function () {
-                console.log("stop");
-                mediaRecorder.stop();
-                startRecordingButton.disabled = false;
-                stopRecordingButton.disabled = true;
-            })
         })
         .catch(function (error) {
             console.error("Error accessing the microphone: " + error);
@@ -58,18 +63,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.error("Browser doesn't support audio recording");
     }
 
-startRecordingButton.addEventListener('click', function () {
-    audioChunks = [];
-    mediaRecorder.start();
-    startRecordingButton.disabled = true;
-    stopRecordingButton.disabled = false;
-});
 
-stopRecordingButton.addEventListener('click', function () {
-    mediaRecorder.stop();
-    startRecordingButton.disabled = false;
-    stopRecordingButton.disabled = true;
-})
 
 async function uploadBlob(audioBlob) {
     const formData = new FormData();
