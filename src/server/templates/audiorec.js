@@ -24,8 +24,6 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
                 uploadBlob(audioBlob);
                 audioChunks = [];
-
-                
             };
 
             recordingButton.addEventListener('click', function () {
