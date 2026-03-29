@@ -16,7 +16,7 @@ from Chunk import Chunk
 import random
 from pathlib import Path
 
-def load_model(path="best_resnet18.pth"):
+def load_model(path="best_resnet18_2.pth"):
     num_classes = 94
     class_names = list(range(num_classes)) 
     
@@ -55,7 +55,7 @@ def classify(model, path):
     #     chunks.append(chunk)
     transform = transforms.Compose(
         [transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,))])
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
     tensors = []
 
     device = (
@@ -102,7 +102,7 @@ def temp_classify(path):
 
 
 if __name__ == "__main__":
-    # rizzy = load_model()
-    # classify(rizzy, path="data/audioFiles/XC717918.mp3")
+    rizzy = load_model()
+    classify(rizzy, path="data/audioFiles/XC717918.mp3")
 
-    print(temp_classify(path="data/audioFiles/XC717918.mp3"))
+    # print(temp_classify(path="data/audioFiles/XC717918.mp3"))
