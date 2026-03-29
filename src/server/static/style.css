@@ -32,9 +32,7 @@ div.duckNoise {
     height : 400px;
     background-color: #E4572E;
     margin: 20px;
-    padding: 10px;
 }
-
 div.duckGif {
     width: 300px;
     height: 400px;
@@ -45,13 +43,7 @@ div.duckTranslation {
     width: 300px;
     height : 400px;
     margin: 20px;
-    padding: 10px;
     background-color: #E4572E;
-}
-
-p {
-    background-color: #E4572E;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -59,4 +51,3 @@ body {
     font-family: "Press Start 2P", monospace;
     color: #F6E798; 
 }
-

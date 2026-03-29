@@ -1,10 +1,12 @@
-const startRecordingButton = document.getElementById("startRecording");
-const stopRecordingButton = document.getElementById("stopRecording");
+const recordingButton = document.getElementById("recordingBttn");
 const audioList = document.getElementById("audioList");
 const audioPlayer = document.getElementById("audioPlayer");
 
 let mediaRecorder;
 let audioChunks = [];
+
+console.log("JavaLoaded")
+startRecording = false;
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ audio: true})
@@ -19,20 +21,30 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             };
 
             mediaRecorder.onstop = function () {
-                const audioBlob = new Blob(audioChunks, { 'type': 'audio/wav'});
-                const audioURL = URL.createObjectURL(audioBlob);
-                const listItem = document.createElement('li');
-                const audioLink = document.createElement('a');
-                audioLink.href = audioURL;
-                audioLink.download = 'audio.wav';
-                audioLink.textContent = 'Download Audio';
-                listItem.appendChild(audioLink);
-                audioList.appendChild(listItem);
-                audioPlayer.src = audioURL;
+                const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+                uploadBlob(audioBlob);
                 audioChunks = [];
+
+                
             };
 
-        
+            recordingButton.addEventListener('click', function () {
+                if (startRecording == false) {
+                    startRecording = true;
+                    audioChunks = [];
+                    mediaRecorder.start();
+                    document.getElementById('duckImg').src='duckThinking.gif'
+                    recordingButton.src='startRecording.png'
+                }
+
+                else {
+                    mediaRecorder.stop();
+                    startRecording = false;
+                    document.getElementById('duckImg').src='duckSpeaking.gif'
+                    recordingButton.src='stopRecording.png'
+                }
+            });
+
         })
         .catch(function (error) {
             console.error("Error accessing the microphone: " + error);
@@ -42,15 +54,29 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.error("Browser doesn't support audio recording");
     }
 
-startRecordingButton.addEventListener('click', function () {
-    audioChunks = [];
-    mediaRecorder.start();
-    startRecordingButton.disabled = true;
-    stopRecordingButton.disabled = false;
-});
 
-stopRecordingButton.addEventListener('click', function () {
-    mediaRecorder.stop();
-    startRecordingButton.disabled = false;
-    stopRecordingButton.disabled = true;
-})
+
+async function uploadBlob(audioBlob) {
+    const formData = new FormData();
+    formData.append('audio_data', audioBlob, 'audio.webm');
+
+    const apiUrl = "http://127.0.0.1:5000/upload/audio"
+
+    try {
+        const res = await fetch(apiUrl, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!res.ok) {
+            throw new Error("Server error");
+        }
+
+        const data = await res.json();
+        document.getElementsByClassName("translate")[0].textContent=data.response;
+        console.log("Upload success:", data);
+
+    } catch (err) {
+        console.error("Upload failed:", err);
+    }
+}
