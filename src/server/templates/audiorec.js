@@ -1,6 +1,6 @@
 const recordingButton = document.getElementById("recordingBttn");
 const audioList = document.getElementById("audioList");
-const audioPlayer = document.getElementById("audioPlayer");
+
 
 let mediaRecorder;
 let audioChunks = [];
@@ -24,8 +24,6 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
                 uploadBlob(audioBlob);
                 audioChunks = [];
-
-                
             };
 
             recordingButton.addEventListener('click', function () {

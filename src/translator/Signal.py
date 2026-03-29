@@ -69,7 +69,7 @@ class Signal:
         plt.close()
 
 if __name__ == "__main__":
-    sig = Signal("data\\audioFiles\\XC196999 - Mallard - Anas platyrhynchos.mp3")
+    sig = Signal("data\\audioFiles\\XC196999.mp3")
     sig.chunk_up_the_wav(2)
     sig.chunks_to_specs()
     sig.save_chunks()
