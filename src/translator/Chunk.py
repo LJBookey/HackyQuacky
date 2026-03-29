@@ -12,7 +12,7 @@ class Chunk:
         self.path = input_path
         self.spec = Image.open(self.path).convert('L')
         self.spec = np.array(self.spec, dtype=np.float32) / 255.0
-        self.spec = self.spec.flatten()
+        # self.spec = self.spec.flatten()
 
         return self.spec
 

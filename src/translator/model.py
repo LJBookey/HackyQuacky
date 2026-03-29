@@ -235,7 +235,7 @@ def main():
         if accuracy > best_val_accuracy:
             print(f'Validation accuracy improved from {best_val_accuracy:.2f}% to {accuracy:.2f}%')
             best_val_accuracy = accuracy
-            torch.save(resnet18.state_dict(), "best_resnet18.pth")
+            torch.save(resnet18.state_dict(), "best_resnet18_2.pth")
         else:
             print(f'Early stopping triggered after epoch {epoch+1}')
             break
