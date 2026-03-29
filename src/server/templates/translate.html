@@ -7,33 +7,42 @@
     <title>Hacky Quacky</title>
 
     <body>
-        <header><h2>Translate experiment</h2></header>
+        <header><h2>Hacky Quacky</h2></header>
 
-        <div class="navBar">
-            <ul class="navBar">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="translate.html">Translate</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
-        </div>
 
         <div class="flex-container">
                 <!-- The code for the form -->
         <!-- <div class="duckNoise"> -->
             <div class="duckNoise">
-            <h3>Upload the duck track</h3>
-            <input type="image" src="stopRecording.png" alt="recordingButton" id="recordingBttn">
-            <ul id="audioList"></ul>
-            <audio id="audioPlayer" controls></audio>
+            <h3>Duck speak here: </h3>
+                <div class="bttn"><input type="image" src="stopRecording.png" alt="recordingButton" id="recordingBttn">
+                </div>
             </div>
+            
         <!-- </div> -->
             <div class="duckGif">
-            <img id="duckImg" src="duck.gif" alt="a pixel duck" style = "width:100%; height:100%">
+                <div class="childEl"><img id="duckImg" src="englishDuck.gif" alt="a pixel duck" style = "width:100%; height:100%"></div>
+                <div class="childEl2">
+                    <select id="choices">
+                        <option value="english">English</option>
+                        <option value="scottish">Scottish</option>
+                        <option value="french">French</option>
+                        <option value="german">German</option>
+                        <option value="spanish">Spanish</option>
+                    </select>
+                </div>
+                
+
             </div>
             <div class="duckTranslation">
                 <h3>Translated duck: </h3>
                 <p> <span class="translate"></span></p>
             </div>
+        </div>
+
+
+        <div class="footer">
+            <img id="duckFriend" src="ducklove.gif" alt="a pixel duck">
         </div>
     </body>
     <script src="audiorec.js"></script>
