@@ -14,7 +14,7 @@ UPLOAD_FOLDER = "uploads"
 
 @app.route('/')  
 def main():  
-    return render_template()  
+    return render_template("translate.html")  
 
 @app.route('/upload/audio', methods = ['POST'])  
 def uploadAudio():
