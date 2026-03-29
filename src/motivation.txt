@@ -90,3 +90,4 @@
 "Have you tried downloading more RAM?"
 "Are you connected to eduroam?"
 "Find Al Dearle, he has the answers you seek."
+"C'est la vie"
