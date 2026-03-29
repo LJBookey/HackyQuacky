@@ -76,7 +76,7 @@ def main():
     # 2. Normalise using mean=0.5, std=0.5 for better training stability
     transform = transforms.Compose(
         [transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,))])
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
     trainingImagesDataset = torchvision.datasets.ImageFolder(root='data/training', transform=transform)
     trainingDataLoader = DataLoader(trainingImagesDataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=4)
