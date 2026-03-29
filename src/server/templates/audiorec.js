@@ -1,10 +1,10 @@
 const recordingButton = document.getElementById("recordingBttn");
 const audioList = document.getElementById("audioList");
-
+const selectElement = document.getElementById('choices');
 
 let mediaRecorder;
 let audioChunks = [];
-
+let duck = "englishDuck";
 console.log("JavaLoaded")
 startRecording = false;
 
@@ -31,15 +31,19 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                     startRecording = true;
                     audioChunks = [];
                     mediaRecorder.start();
-                    document.getElementById('duckImg').src='duckThinking.gif'
-                    recordingButton.src='startRecording.png'
+                    var thinkDuck = duck + "Thinking";
+                    var thinkGif = thinkDuck + ".gif";
+                    document.getElementById('duckImg').src=thinkGif;
+                    recordingButton.src='startRecording.png';
                 }
 
                 else {
                     mediaRecorder.stop();
                     startRecording = false;
-                    document.getElementById('duckImg').src='duckSpeaking.gif'
-                    recordingButton.src='stopRecording.png'
+                    var speakDuck = duck + "Speaking"
+                    var speakGif = speakDuck + ".gif";
+                    document.getElementById('duckImg').src=speakGif;
+                    recordingButton.src='stopRecording.png';
                 }
             });
 
@@ -78,3 +82,12 @@ async function uploadBlob(audioBlob) {
         console.error("Upload failed:", err);
     }
 }
+
+
+selectElement.addEventListener('change', function() {
+    var value = selectElement.value;
+    console.log(value);
+    duck = value + "Duck";
+    var gifDuck = duck + ".gif";
+    document.getElementById('duckImg').src=gifDuck;
+});
