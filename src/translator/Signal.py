@@ -2,7 +2,7 @@ import librosa as lb
 import librosa.display as lbdis
 import numpy as np
 import matplotlib.pyplot as plt
-
+import os
 class Signal:
     def __init__(self, path):
         self.audio_path = path
@@ -38,7 +38,7 @@ class Signal:
             self.spec_chunks.append(self.generate_spectrogram(chunk))
 
     def save_chunks(self, folder="data/spec_chunks"):
-        name = self.audio_path[self.audio_path.rindex("\\"):self.audio_path.index(".")]
+        name = self.audio_path[self.audio_path.rindex("/"):self.audio_path.index(".")]
 
         # path = f"{folder}/{name}_{1}"
         # self.save_spectrogram(self.spec_chunks[0], path)
@@ -52,7 +52,6 @@ class Signal:
         # orignal 1024, 512
         spec = lb.stft(chunk, n_fft=4096, hop_length=512)
         spec = abs(spec) ** 2
-
         return spec
         
     def save_spectrogram(self, spec, image_path):
