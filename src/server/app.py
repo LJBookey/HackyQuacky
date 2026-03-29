@@ -27,14 +27,27 @@ def uploadAudio():
 
   convertFromWebmToWav(target_path)
 
+<<<<<<< HEAD:src/server/app.py
   print("Ducky say: The problem is in the code")
   response = numbersToMessage([1,2], "english")
+=======
+  # I think we can put the stuff for translating here 
+  response = numbersToMessage([1], "english")
+  print(response)
+  print ("Ducky say: The problem is in the code")
+>>>>>>> 4bea1628dcc169d3032f0257202a3654553cd13c:src/server/main.py
   return jsonify(response)
 
 def convertFromWebmToWav(target_path):
   sound = AudioSegment.from_file(target_path)
   sound.export(os.path.join(UPLOAD_FOLDER, "Audio.wav"), format="wav")
 
+<<<<<<< HEAD:src/server/app.py
+=======
+
+#cluster = list of clusters 
+#languge = the languge to tran
+>>>>>>> 4bea1628dcc169d3032f0257202a3654553cd13c:src/server/main.py
 def numbersToMessage(clusters, language="english"):
   results = []
   for num in clusters:
@@ -42,10 +55,20 @@ def numbersToMessage(clusters, language="english"):
       phrase = data[num].get(language, data[num]["english"])
       results.append(phrase)
     else:
+<<<<<<< HEAD:src/server/app.py
       results.append("Quack? (Message not found)")
   return {
       "status": "ok",
       "response": " ".join(results)
+=======
+        results.append("Quack? (Message not found)")
+  responseString = " ".join(results)
+  print(responseString)
+  return {
+      "status": "ok",
+      "response": responseString,
+      "language": language
+>>>>>>> 4bea1628dcc169d3032f0257202a3654553cd13c:src/server/main.py
   }
 
 def load_translations(filename="server/translations.csv"):
