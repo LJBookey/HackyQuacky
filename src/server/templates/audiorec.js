@@ -1,6 +1,6 @@
 const recordingButton = document.getElementById("recordingBttn");
 const audioList = document.getElementById("audioList");
-const audioPlayer = document.getElementById("audioPlayer");
+
 
 let mediaRecorder;
 let audioChunks = [];
