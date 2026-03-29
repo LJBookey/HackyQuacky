@@ -103,6 +103,6 @@ def temp_classify(path):
 
 if __name__ == "__main__":
     rizzy = load_model()
-    classify(rizzy, path="data/audioFiles/XC717918.mp3")
+    classify(rizzy, path="data/testFiles/bitchassTestFile.mp3")
 
     # print(temp_classify(path="data/audioFiles/XC717918.mp3"))

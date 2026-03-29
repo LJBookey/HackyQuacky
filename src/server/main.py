@@ -28,8 +28,8 @@ def uploadAudio():
   convertFromWebmToWav(target_path)
 
   # I think we can put the stuff for translating here 
-  response = numbersToMessage([1,2], "English")
-
+  response = numbersToMessage([1], "english")
+  print(response)
   print ("Ducky say: The problem is in the code")
   return jsonify(response)
 
@@ -40,19 +40,19 @@ def convertFromWebmToWav(target_path):
 
 #cluster = list of clusters 
 #languge = the languge to tran
-def numbersToMessage(clusters, language="English"):
+def numbersToMessage(clusters, language="english"):
   results = []
-  
   for num in clusters:
     if num in data:
       phrase = data[num].get(language, data[num]["English"])
       results.append(phrase)
     else:
         results.append("Quack? (Message not found)")
-
+  responseString = " ".join(results)
+  print(responseString)
   return {
       "status": "ok",
-      "response": " ".join(results),
+      "response": responseString,
       "language": language
   }
 
