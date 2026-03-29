@@ -4,7 +4,7 @@ const selectElement = document.getElementById('choices');
 
 let mediaRecorder;
 let audioChunks = [];
-let duck;
+let duck = "englishDuck";
 console.log("JavaLoaded")
 startRecording = false;
 
