@@ -1,16 +1,19 @@
-#from distutils.log import debug
-from fileinput import filename
 from flask import *  
 from flask_cors import CORS
 import os
 from pydub import AudioSegment
-
 import csv
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
-UPLOAD_FOLDER = "uploads"
+UPLOAD_FOLDER = "/tmp/duck_uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+data = {
+    1: {"english": "Hello"},
+    2: {"english": "World"}
+}
 
 @app.route('/')  
 def main():  
@@ -18,55 +21,40 @@ def main():
 
 @app.route('/upload/audio', methods = ['POST'])  
 def uploadAudio():
-
   audio_file = request.files.get('audio_data')
-  filename = "myAudioFile.webm"
-  
-  target_path = os.path.join(UPLOAD_FOLDER, filename)
+  target_path = os.path.join(UPLOAD_FOLDER, "myAudioFile.webm")
   audio_file.save(target_path)
 
   convertFromWebmToWav(target_path)
 
-  # I think we can put the stuff for translating here 
-  response = numbersToMessage([1,2], "English")
-
-  print ("Ducky say: The problem is in the code")
+  print("Ducky say: The problem is in the code")
+  response = numbersToMessage([1,2], "english")
   return jsonify(response)
 
 def convertFromWebmToWav(target_path):
   sound = AudioSegment.from_file(target_path)
   sound.export(os.path.join(UPLOAD_FOLDER, "Audio.wav"), format="wav")
 
-
-#cluster = list of clusters 
-#languge = the languge to tran
-def numbersToMessage(clusters, language="English"):
+def numbersToMessage(clusters, language="english"):
   results = []
-  
   for num in clusters:
     if num in data:
-      phrase = data[num].get(language, data[num]["English"])
+      phrase = data[num].get(language, data[num]["english"])
       results.append(phrase)
     else:
-        results.append("Quack? (Message not found)")
-
+      results.append("Quack? (Message not found)")
   return {
       "status": "ok",
-      "response": " ".join(results),
-      "language": language
+      "response": " ".join(results)
   }
 
-#load in the csv of responses 
-def load_translations(filename="src/server/translations.csv"):
+def load_translations(filename="server/translations.csv"):
     translations = {}
     with open(filename, mode='r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for i, row in enumerate(reader, start=1):
             translations[i] = row
     return translations
-  
-#load the data 
-data = load_translations()
 
 if __name__ == '__main__':  
-    app.run()
+    app.run(debug=True, use_reloader=False)

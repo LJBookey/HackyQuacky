@@ -26,7 +26,9 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 audioChunks = [];
             };
 
-            recordingButton.addEventListener('click', function () {
+            recordingButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
                 if (startRecording == false) {
                     startRecording = true;
                     audioChunks = [];
@@ -34,7 +36,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                     var thinkDuck = duck + "Thinking";
                     var thinkGif = thinkDuck + ".gif";
                     document.getElementById('duckImg').src=thinkGif;
-                    recordingButton.src='startRecording.png';
+                    document.getElementById('recordingBttnImg').src ='startRecording.png';
                 }
 
                 else {
@@ -43,7 +45,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                     var speakDuck = duck + "Speaking"
                     var speakGif = speakDuck + ".gif";
                     document.getElementById('duckImg').src=speakGif;
-                    recordingButton.src='stopRecording.png';
+                    document.getElementById('recordingBttnImg').src='stopRecording.png';
                 }
             });
 
@@ -62,7 +64,7 @@ async function uploadBlob(audioBlob) {
     const formData = new FormData();
     formData.append('audio_data', audioBlob, 'audio.webm');
 
-    const apiUrl = "http://127.0.0.1:5000/upload/audio"
+    const apiUrl = "http://127.0.0.1:5000/upload/audio";
 
     try {
         const res = await fetch(apiUrl, {
