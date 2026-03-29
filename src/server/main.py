@@ -4,13 +4,19 @@ from flask import *
 from flask_cors import CORS
 import os
 from pydub import AudioSegment
-
+import numpy as np 
+from translator.load_model import load_model
+from translator.load_model import classify
+# from translator.load_model import temp_classify as classify
+import random
 import csv
+
 
 app = Flask(__name__)
 CORS(app)
 
-UPLOAD_FOLDER = "uploads"
+UPLOAD_FOLDER = "../"
+MODEL = load_model()
 
 @app.route('/')  
 def main():  
@@ -24,18 +30,20 @@ def uploadAudio():
   
   target_path = os.path.join(UPLOAD_FOLDER, filename)
   audio_file.save(target_path)
+  out_path = convertFromWebmToWav(target_path)
 
-  convertFromWebmToWav(target_path)
+  labels = classify(MODEL, out_path)
 
-  # I think we can put the stuff for translating here 
-  response = numbersToMessage([1], "english")
-  print(response)
-  print ("Ducky say: The problem is in the code")
+  # I think we can put the stuff for translating here
+
+  response = numbersToMessage(labels, "english")
   return jsonify(response)
 
 def convertFromWebmToWav(target_path):
   sound = AudioSegment.from_file(target_path)
-  sound.export(os.path.join(UPLOAD_FOLDER, "Audio.wav"), format="wav")
+  out_path = os.path.join(UPLOAD_FOLDER, "Audio.wav")
+  sound.export(out_path, format="wav")
+  return out_path
 
 
 #cluster = list of clusters 
@@ -69,4 +77,4 @@ def load_translations(filename="src/server/translations.csv"):
 data = load_translations()
 
 if __name__ == '__main__':  
-    app.run()
+    app.run(threaded=False)

@@ -1,4 +1,3 @@
-
 import os
 import torch
 import torch.nn as nn
@@ -11,8 +10,8 @@ from torch.utils.data import DataLoader
 
 from PIL import Image
 import numpy as np
-from Signal import Signal
-from Chunk import Chunk
+from translator.Signal import Signal
+from translator.Chunk import Chunk
 import random
 from pathlib import Path
 
@@ -40,9 +39,9 @@ def classify(model, path):
     sig = Signal(path)
     sig.chunk_up_the_wav(1)
     sig.chunks_to_specs()
-    temp_dir = "src/translator/temp"
+    temp_dir = "../temp"
     temp_path = Path(temp_dir)
-    
+
 
     sig.save_chunks(folder=temp_dir)
 
@@ -94,11 +93,14 @@ def classify(model, path):
         print("Predicted class: ", str(class_names[pred.item()]))
         labels.append(class_names[pred.item()])
 
-def temp_classify(path):
-    sig = Signal(path)
-    sig.chunk_up_the_wav(1)
 
-    return [random.randint(0, 94) for _ in range(len(sig.chunks))]
+    return labels
+
+def temp_classify(path):
+    # sig = Signal(path)
+    # sig.chunk_up_the_wav(1)
+
+    return [random.randint(0, 94) for _ in range(10)]
 
 
 if __name__ == "__main__":

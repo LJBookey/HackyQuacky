@@ -39,12 +39,14 @@ class Signal:
 
     def save_chunks(self, folder="data/spec_chunks"):
         name = self.audio_path[self.audio_path.rindex("/"):self.audio_path.index(".")]
+        name = "audio"
 
         # path = f"{folder}/{name}_{1}"
         # self.save_spectrogram(self.spec_chunks[0], path)
 
         for i, chunk in enumerate(self.spec_chunks):
             path = f"{folder}/{name}_{i}"
+            print(path)
             self.save_spectrogram(chunk, path)
 
 
