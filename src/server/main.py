@@ -27,16 +27,16 @@ def uploadAudio():
 
   audio_file = request.files.get('audio_data')
   filename = "myAudioFile.webm"
+
+  language = request.form.get('language', 'english').capitalize()
   
   target_path = os.path.join(UPLOAD_FOLDER, filename)
   audio_file.save(target_path)
   out_path = convertFromWebmToWav(target_path)
 
   labels = classify(MODEL, out_path)
-
-  # I think we can put the stuff for translating here
-
-  response = numbersToMessage(labels, "english")
+  labels = list(dict.fromkeys(labels))  
+  response = numbersToMessage(labels, language)
   return jsonify(response)
 
 def convertFromWebmToWav(target_path):

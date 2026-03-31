@@ -12,3 +12,5 @@ sudo apt-get install ffmpeg
 
 # Run server
 python src/server/main.py
+
+(source venv/bin/activate)

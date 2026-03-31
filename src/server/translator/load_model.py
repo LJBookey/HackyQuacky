@@ -42,7 +42,12 @@ def classify(model, path):
     temp_dir = "../temp"
     temp_path = Path(temp_dir)
 
+    #need to reset 
+    if temp_path.exists():
+        for f in temp_path.rglob('*'):
+            f.unlink()
 
+    os.makedirs(temp_dir, exist_ok=True)
     sig.save_chunks(folder=temp_dir)
 
     chunks = []
